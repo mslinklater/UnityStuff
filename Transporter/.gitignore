@@ -1,0 +1,10 @@
+Library
+obj
+Logs
+Temp
+*.csproj
+*.sln
+.vscode
+Assets/Vectrosity
+Assets/Vectrosity.meta
+
