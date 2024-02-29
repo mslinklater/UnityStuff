@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Assets/Scripts/MainCamera.cs" />
     <Compile Include="Assets/Scripts/Chunk.cs" />
+    <Compile Include="Assets/Scripts/Cube.cs" />
     <Compile Include="Assets/Scripts/Bootstrap.cs" />
   </ItemGroup>
   <ItemGroup>
