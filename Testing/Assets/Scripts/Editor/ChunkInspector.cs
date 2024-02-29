@@ -18,6 +18,11 @@ public class ChunkInspector : Editor
                 chunk.RebuildMesh();
             }
         }
+
+        if (GUILayout.Button("Rebuild"))
+        {
+            chunk.RebuildMesh();
+        }
     }
 
     private void OnEnable()
