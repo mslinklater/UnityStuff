@@ -23,13 +23,15 @@ public class WorldManager : MonoBehaviour
                             } }
     private bool _crack = false;
 
+    public GameObject chunkPrefab;
+
     // Main chunk storage
 
     public List<GameObject> eventhandlers;
-    private Dictionary<Vector3,Chunk> chunkDictionary = new Dictionary<Vector3, Chunk>();
+    private Dictionary<Vector3,GameObject> chunkDictionary = new Dictionary<Vector3, GameObject>();
 
     // global chunk resolution
-    private int chunkSize = 10;
+//    private int chunkSize = 10;
 
 #region Lifecycle
     // Start is called before the first frame update
@@ -41,11 +43,21 @@ public class WorldManager : MonoBehaviour
         {
             Destroy(chunk.gameObject);
         }
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        SetVoxel((int)UnityEngine.Random.Range(0, 50),
+                (int)UnityEngine.Random.Range(0, 50),
+                (int)UnityEngine.Random.Range(0, 50), 
+                true,
+                new Color32((byte)UnityEngine.Random.Range(0.0f, 255.0f),
+                        (byte)UnityEngine.Random.Range(0.0f, 255.0f),
+                        (byte)UnityEngine.Random.Range(0.0f, 255.0f),
+                        255));
+
         if(crack != crackInInspector)
         {
             crack = crackInInspector;
@@ -54,24 +66,29 @@ public class WorldManager : MonoBehaviour
 #endregion
 
 #region World block API
-    public void SetVoxel(int x, int y, int z)
+    public void SetVoxel(int x, int y, int z, bool opaque, Color32 color)
     {
-        Vector3 chunkID = new Vector3((x / chunkSize) * chunkSize, (x / chunkSize) * chunkSize, (x / chunkSize) * chunkSize);
-        if(!chunkDictionary.ContainsKey(chunkID))
+        int c = Chunk.voxelCount;
+        Vector3 chunkPos = new Vector3((x / c) * c, (y / c) * c, (z / c) * c);
+        if(!chunkDictionary.ContainsKey(chunkPos))
         {
-            Chunk newChunk = new Chunk();
-            newChunk.voxelCount = chunkSize;
-            newChunk.voxelSize = 1.0f;
-            chunkDictionary[chunkID] = newChunk;
+            GameObject newChunkObj = Instantiate(chunkPrefab);
+            Chunk chunkComponent = newChunkObj.GetComponent<Chunk>();
+            chunkComponent.voxelSize = 1.0f;
+            chunkDictionary[chunkPos] = newChunkObj;
+            newChunkObj.transform.position = chunkPos;  // a bit strange this
         }
         // set the voxel on the chunk
 
-        Chunk chunk = chunkDictionary[chunkID];
-    }
+        GameObject chunkObj = chunkDictionary[chunkPos];
+        Chunk chunkComp = chunkObj.GetComponent<Chunk>();
 
-    public void ClearVoxel(int x, int y, int z)
-    {
+        int localX = x % Chunk.voxelCount;
+        int localY = y % Chunk.voxelCount;
+        int localZ = z % Chunk.voxelCount;
 
+        chunkComp.SetVoxel(localX, localY, localZ, Voxel.Material.Ground, color);
+        chunkComp.RebuildMesh();
     }
 
     public void RebuildAll()

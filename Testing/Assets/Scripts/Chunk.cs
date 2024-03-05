@@ -14,26 +14,32 @@ public class Chunk :    MonoBehaviour,
 {
     public enum Population {
         All,
-        Half
+        Half,
+        None,
+        LeaveAlone
+    }
+
+    private struct DrawBuffers {
+        public Vector3[] meshVertices;
+        public Color32[] meshColors;
+        public List<int> meshIndices;   // = new List<int>();
     }
 
     public bool showCage = false;
-    public bool removeInternalFaces = false;
+    public bool removeInternalFaces = true;
     public float voxelSize = 1.0f;
-    public Population population = Population.All;
+    public Population population = Population.LeaveAlone;
 
-    [Range(1,20)]   // 20 max as this means 20*20*20*8 verts, which is 64K
-    public int voxelCount = 2;
+    static public int voxelCount = 10;
     
     private int numVoxels = 0;
+    private int numVertices = 0;
 
     private MeshFilter meshFilter;
 
-    private Voxel[] voxels;
+    private Voxel[] voxels = new Voxel[voxelCount * voxelCount * voxelCount];
 
-    private Vector3[] meshVertices;
-    private Color32[] meshColors;
-    private List<int> meshIndices = new List<int>();
+    private DrawBuffers drawBuffers = new DrawBuffers();
 
     private WorldManager worldManager;
 
@@ -46,11 +52,18 @@ public class Chunk :    MonoBehaviour,
         Debug.Log("Chunk.SetCrack()");
     }
 
+    void Awake()
+    {
+        drawBuffers.meshIndices = new List<int>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         worldManager = FindObjectOfType<WorldManager>();
         worldManager.eventhandlers.Add(gameObject);
+
+        EnsureMeshExists();
 
         // rebuild
         RebuildMesh();
@@ -60,6 +73,27 @@ public class Chunk :    MonoBehaviour,
     void Update()
     {
         
+    }
+
+    private void EnsureMeshExists()
+    {
+        // Add required components
+        meshFilter = GetComponent<MeshFilter>();
+        if(meshFilter == null)
+        {
+            meshFilter = gameObject.AddComponent<MeshFilter>();
+        }
+        if(meshFilter.sharedMesh == null)
+        {
+            meshFilter.sharedMesh = new Mesh();
+            meshFilter.sharedMesh.triangles = new int[0];
+        }
+        if(drawBuffers.meshColors == null)
+        {
+            numVoxels = voxelCount * voxelCount * voxelCount;
+            numVertices = numVoxels * 8;
+            drawBuffers.meshColors = new Color32[numVertices];
+        }
     }
 
     private void BuildVoxelArray()
@@ -75,15 +109,28 @@ public class Chunk :    MonoBehaviour,
                     int yp = y + 1;
                     int zp = z + 1;
 
-                    Voxel voxel = new Voxel();
+                    Voxel voxel = voxels[iVoxel];
+
                     voxel.firstVertIndex = iVoxel * 8;
                     switch( population )
                     {
                         case Population.All:
-                            voxel.opaque = true;
+                            voxel.material = Voxel.Material.Ground;
                             break;
                         case Population.Half:
-                            voxel.opaque = UnityEngine.Random.Range(0.0f, 1.0f) > 0.5f;
+                            if(UnityEngine.Random.Range(0.0f, 1.0f) > 0.5f)
+                            {
+                                voxel.material = Voxel.Material.Ground;
+                            }
+                            else
+                            {
+                                voxel.material = Voxel.Material.Empty;
+                            }
+                            break;
+                        case Population.None:
+                            voxel.material = Voxel.Material.Empty;
+                            break;
+                        case Population.LeaveAlone:
                             break;
                     }
 
@@ -103,10 +150,6 @@ public class Chunk :    MonoBehaviour,
                     voxel.verts[6] = new Vector3(x * voxelSize, yp * voxelSize - crack, zp * voxelSize - crack);
                     voxel.verts[7] = new Vector3(xp * voxelSize - crack, yp * voxelSize - crack, zp * voxelSize - crack);
 
-                    voxel.color = new Color32((byte)UnityEngine.Random.Range(0.0f, 255.0f), 
-                                                (byte)UnityEngine.Random.Range(0.0f, 255.0f),
-                                                (byte)UnityEngine.Random.Range(0.0f, 255.0f), 255);
-
                     voxels[iVoxel++] = voxel;
                 }
             }
@@ -122,57 +165,57 @@ public class Chunk :    MonoBehaviour,
             {
                 for(int x = 0; x < voxelCount; x++)
                 {
-                    if(voxels[iVoxel].opaque)
+                    if(voxels[iVoxel].IsOpaque())
                     {
                         int firstIndex = voxels[iVoxel].firstVertIndex;
 
                         // Z min
-                        meshIndices.Add(firstIndex);
-                        meshIndices.Add(firstIndex + 2);
-                        meshIndices.Add(firstIndex + 1);
-                        meshIndices.Add(firstIndex + 2);
-                        meshIndices.Add(firstIndex + 3);
-                        meshIndices.Add(firstIndex + 1);
+                        drawBuffers.meshIndices.Add(firstIndex);
+                        drawBuffers.meshIndices.Add(firstIndex + 2);
+                        drawBuffers.meshIndices.Add(firstIndex + 1);
+                        drawBuffers.meshIndices.Add(firstIndex + 2);
+                        drawBuffers.meshIndices.Add(firstIndex + 3);
+                        drawBuffers.meshIndices.Add(firstIndex + 1);
 
                         // Z max
-                        meshIndices.Add(firstIndex + 4);
-                        meshIndices.Add(firstIndex + 5);
-                        meshIndices.Add(firstIndex + 6);
-                        meshIndices.Add(firstIndex + 6);
-                        meshIndices.Add(firstIndex + 5);
-                        meshIndices.Add(firstIndex + 7);
+                        drawBuffers.meshIndices.Add(firstIndex + 4);
+                        drawBuffers.meshIndices.Add(firstIndex + 5);
+                        drawBuffers.meshIndices.Add(firstIndex + 6);
+                        drawBuffers.meshIndices.Add(firstIndex + 6);
+                        drawBuffers.meshIndices.Add(firstIndex + 5);
+                        drawBuffers.meshIndices.Add(firstIndex + 7);
 
                         // Y min
-                        meshIndices.Add(firstIndex);
-                        meshIndices.Add(firstIndex + 1);
-                        meshIndices.Add(firstIndex + 4);
-                        meshIndices.Add(firstIndex + 1);
-                        meshIndices.Add(firstIndex + 5);
-                        meshIndices.Add(firstIndex + 4);
+                        drawBuffers.meshIndices.Add(firstIndex);
+                        drawBuffers.meshIndices.Add(firstIndex + 1);
+                        drawBuffers.meshIndices.Add(firstIndex + 4);
+                        drawBuffers.meshIndices.Add(firstIndex + 1);
+                        drawBuffers.meshIndices.Add(firstIndex + 5);
+                        drawBuffers.meshIndices.Add(firstIndex + 4);
 
                         // Y max
-                        meshIndices.Add(firstIndex + 2);
-                        meshIndices.Add(firstIndex + 6);
-                        meshIndices.Add(firstIndex + 3);
-                        meshIndices.Add(firstIndex + 3);
-                        meshIndices.Add(firstIndex + 6);
-                        meshIndices.Add(firstIndex + 7);
+                        drawBuffers.meshIndices.Add(firstIndex + 2);
+                        drawBuffers.meshIndices.Add(firstIndex + 6);
+                        drawBuffers.meshIndices.Add(firstIndex + 3);
+                        drawBuffers.meshIndices.Add(firstIndex + 3);
+                        drawBuffers.meshIndices.Add(firstIndex + 6);
+                        drawBuffers.meshIndices.Add(firstIndex + 7);
 
                         // X min
-                        meshIndices.Add(firstIndex);
-                        meshIndices.Add(firstIndex + 4);
-                        meshIndices.Add(firstIndex + 2);
-                        meshIndices.Add(firstIndex + 4);
-                        meshIndices.Add(firstIndex + 6);
-                        meshIndices.Add(firstIndex + 2);
+                        drawBuffers.meshIndices.Add(firstIndex);
+                        drawBuffers.meshIndices.Add(firstIndex + 4);
+                        drawBuffers.meshIndices.Add(firstIndex + 2);
+                        drawBuffers.meshIndices.Add(firstIndex + 4);
+                        drawBuffers.meshIndices.Add(firstIndex + 6);
+                        drawBuffers.meshIndices.Add(firstIndex + 2);
 
                         // X max
-                        meshIndices.Add(firstIndex + 1);
-                        meshIndices.Add(firstIndex + 3);
-                        meshIndices.Add(firstIndex + 5);
-                        meshIndices.Add(firstIndex + 5);
-                        meshIndices.Add(firstIndex + 3);
-                        meshIndices.Add(firstIndex + 7);
+                        drawBuffers.meshIndices.Add(firstIndex + 1);
+                        drawBuffers.meshIndices.Add(firstIndex + 3);
+                        drawBuffers.meshIndices.Add(firstIndex + 5);
+                        drawBuffers.meshIndices.Add(firstIndex + 5);
+                        drawBuffers.meshIndices.Add(firstIndex + 3);
+                        drawBuffers.meshIndices.Add(firstIndex + 7);
                     }
                     iVoxel++;
                 }
@@ -196,74 +239,74 @@ public class Chunk :    MonoBehaviour,
             {
                 for(int x = 0; x < voxelCount; x++)
                 {
-                    if(voxels[iVoxel].opaque)
+                    if(voxels[iVoxel].IsOpaque())
                     {
                         int firstIndex = voxels[iVoxel].firstVertIndex;
 
                         // Z min
-                        if((z == 0) || (!voxels[iVoxel + prevZ].opaque))
+                        if((z == 0) || (!voxels[iVoxel + prevZ].IsOpaque()))
                         {
-                            meshIndices.Add(firstIndex);
-                            meshIndices.Add(firstIndex + 2);
-                            meshIndices.Add(firstIndex + 1);
-                            meshIndices.Add(firstIndex + 2);
-                            meshIndices.Add(firstIndex + 3);
-                            meshIndices.Add(firstIndex + 1);
+                            drawBuffers.meshIndices.Add(firstIndex);
+                            drawBuffers.meshIndices.Add(firstIndex + 2);
+                            drawBuffers.meshIndices.Add(firstIndex + 1);
+                            drawBuffers.meshIndices.Add(firstIndex + 2);
+                            drawBuffers.meshIndices.Add(firstIndex + 3);
+                            drawBuffers.meshIndices.Add(firstIndex + 1);
                         }
-// blah
+
                         // Z max
-                        if((z == voxelCount-1) || (!voxels[iVoxel + nextZ].opaque))
+                        if((z == voxelCount-1) || (!voxels[iVoxel + nextZ].IsOpaque()))
                         {
-                            meshIndices.Add(firstIndex + 4);
-                            meshIndices.Add(firstIndex + 5);
-                            meshIndices.Add(firstIndex + 6);
-                            meshIndices.Add(firstIndex + 6);
-                            meshIndices.Add(firstIndex + 5);
-                            meshIndices.Add(firstIndex + 7);
+                            drawBuffers.meshIndices.Add(firstIndex + 4);
+                            drawBuffers.meshIndices.Add(firstIndex + 5);
+                            drawBuffers.meshIndices.Add(firstIndex + 6);
+                            drawBuffers.meshIndices.Add(firstIndex + 6);
+                            drawBuffers.meshIndices.Add(firstIndex + 5);
+                            drawBuffers.meshIndices.Add(firstIndex + 7);
                         }
 
                         // Y min
-                        if((y == 0) || (!voxels[iVoxel + prevY].opaque))
+                        if((y == 0) || (!voxels[iVoxel + prevY].IsOpaque()))
                         {
-                            meshIndices.Add(firstIndex);
-                            meshIndices.Add(firstIndex + 1);
-                            meshIndices.Add(firstIndex + 4);
-                            meshIndices.Add(firstIndex + 1);
-                            meshIndices.Add(firstIndex + 5);
-                            meshIndices.Add(firstIndex + 4);
+                            drawBuffers.meshIndices.Add(firstIndex);
+                            drawBuffers.meshIndices.Add(firstIndex + 1);
+                            drawBuffers.meshIndices.Add(firstIndex + 4);
+                            drawBuffers.meshIndices.Add(firstIndex + 1);
+                            drawBuffers.meshIndices.Add(firstIndex + 5);
+                            drawBuffers.meshIndices.Add(firstIndex + 4);
                         }
 
                         // Y max
-                        if((y == voxelCount-1) || (!voxels[iVoxel + nextY].opaque))
+                        if((y == voxelCount-1) || (!voxels[iVoxel + nextY].IsOpaque()))
                         {
-                            meshIndices.Add(firstIndex + 2);
-                            meshIndices.Add(firstIndex + 6);
-                            meshIndices.Add(firstIndex + 3);
-                            meshIndices.Add(firstIndex + 3);
-                            meshIndices.Add(firstIndex + 6);
-                            meshIndices.Add(firstIndex + 7);
+                            drawBuffers.meshIndices.Add(firstIndex + 2);
+                            drawBuffers.meshIndices.Add(firstIndex + 6);
+                            drawBuffers.meshIndices.Add(firstIndex + 3);
+                            drawBuffers.meshIndices.Add(firstIndex + 3);
+                            drawBuffers.meshIndices.Add(firstIndex + 6);
+                            drawBuffers.meshIndices.Add(firstIndex + 7);
                         }
 
                         // X min
-                        if((x == 0) || (!voxels[iVoxel + prevX].opaque))
+                        if((x == 0) || (!voxels[iVoxel + prevX].IsOpaque()))
                         {
-                            meshIndices.Add(firstIndex);
-                            meshIndices.Add(firstIndex + 4);
-                            meshIndices.Add(firstIndex + 2);
-                            meshIndices.Add(firstIndex + 4);
-                            meshIndices.Add(firstIndex + 6);
-                            meshIndices.Add(firstIndex + 2);
+                            drawBuffers.meshIndices.Add(firstIndex);
+                            drawBuffers.meshIndices.Add(firstIndex + 4);
+                            drawBuffers.meshIndices.Add(firstIndex + 2);
+                            drawBuffers.meshIndices.Add(firstIndex + 4);
+                            drawBuffers.meshIndices.Add(firstIndex + 6);
+                            drawBuffers.meshIndices.Add(firstIndex + 2);
                         }
 
                         // X max
-                        if((x == voxelCount-1) || (!voxels[iVoxel + nextX].opaque))
+                        if((x == voxelCount-1) || (!voxels[iVoxel + nextX].IsOpaque()))
                         {
-                            meshIndices.Add(firstIndex + 1);
-                            meshIndices.Add(firstIndex + 3);
-                            meshIndices.Add(firstIndex + 5);
-                            meshIndices.Add(firstIndex + 5);
-                            meshIndices.Add(firstIndex + 3);
-                            meshIndices.Add(firstIndex + 7);
+                            drawBuffers.meshIndices.Add(firstIndex + 1);
+                            drawBuffers.meshIndices.Add(firstIndex + 3);
+                            drawBuffers.meshIndices.Add(firstIndex + 5);
+                            drawBuffers.meshIndices.Add(firstIndex + 5);
+                            drawBuffers.meshIndices.Add(firstIndex + 3);
+                            drawBuffers.meshIndices.Add(firstIndex + 7);
                         }
                     }
                     iVoxel++;
@@ -275,39 +318,31 @@ public class Chunk :    MonoBehaviour,
     public void RebuildMesh()
     {
         // Common mesh rebuilding
-        meshFilter = GetComponent<MeshFilter>();
-        if(meshFilter == null)
-        {
-            meshFilter = gameObject.AddComponent<MeshFilter>();
-        }
-        meshFilter.sharedMesh = new Mesh();
-        meshFilter.sharedMesh.triangles = new int[0];
-
-        numVoxels = voxelCount * voxelCount * voxelCount;
-        voxels = new Voxel[numVoxels];
-
         BuildVoxelArray();
 
         // build mesh vertex array
-        int numVertices = numVoxels * 8;
-        meshVertices = new Vector3[numVertices];
-        meshColors = new Color32[numVertices];
+        drawBuffers.meshVertices = new Vector3[numVertices];
 
         int vertNum = 0;
         for(int i = 0; i < numVoxels ; i++)
         {
             for(int iVert = 0; iVert < 8; iVert++)
             {
-                meshVertices[vertNum] = voxels[i].verts[iVert];
-                meshColors[vertNum] = voxels[i].color;
+                drawBuffers.meshVertices[vertNum] = voxels[i].verts[iVert];
+                drawBuffers.meshColors[vertNum] = voxels[i].color;
                 vertNum++;
             }
         }
-        meshFilter.sharedMesh.vertices = meshVertices;
-        meshFilter.sharedMesh.colors32 = meshColors;
+
+        EnsureMeshExists();
+
+        meshFilter = GetComponent<MeshFilter>();
+        meshFilter.sharedMesh.vertices = drawBuffers.meshVertices;
+        meshFilter.sharedMesh.colors32 = drawBuffers.meshColors;
 
         // build mesh indices
-        meshIndices.Clear();
+        Assert.IsNotNull(drawBuffers.meshIndices, "meshIndices");
+        drawBuffers.meshIndices.Clear();
 
         if(removeInternalFaces)
         {
@@ -318,8 +353,17 @@ public class Chunk :    MonoBehaviour,
             BuildAllFaces();
         }
 
-        Debug.Log("Triangles size: " + meshIndices.Count());
-        meshFilter.sharedMesh.triangles = meshIndices.ToArray();
+        meshFilter.sharedMesh.triangles = drawBuffers.meshIndices.ToArray();
+    }
+
+    public void SetVoxel(int x, int y, int z, Voxel.Material material, Color32 color)
+    {
+        EnsureMeshExists();
+
+        int index = x + (voxelCount * y) + (voxelCount * voxelCount * z);
+        Voxel v = voxels[index];
+        v.material = material;
+        voxels[index] = v;
     }
 
     public void Crack(bool _crack)
