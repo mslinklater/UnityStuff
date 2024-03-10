@@ -4,7 +4,8 @@ using System.Linq;
 using UnityEditor.UI;
 using UnityEngine;
 
-public class Bootstrap : MonoBehaviour
+[InitializeOnLoad]
+public class Bootstrap
 {
     void Awake()
     {
