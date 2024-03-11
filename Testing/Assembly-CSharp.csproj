@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets/Scripts/MainCamera.cs" />
+    <Compile Include="Assets/Scripts/DebugUI.cs" />
     <Compile Include="Assets/Scripts/WorldManager.cs" />
     <Compile Include="Assets/Scripts/Chunk.cs" />
     <Compile Include="Assets/Scripts/Voxel.cs" />

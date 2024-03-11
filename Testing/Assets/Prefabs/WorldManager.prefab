@@ -44,3 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af649c11fbc384534b4acbe90269a7c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crackInInspector: 0
+  chunkPrefab: {fileID: 3190520689906546241, guid: ec510599e406d4bafb010239ba34d0ac, type: 3}
+  eventhandlers: []
