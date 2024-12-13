@@ -4,7 +4,6 @@ using System.Linq;
 using UnityEditor.UI;
 using UnityEngine;
 
-[InitializeOnLoad]
 public class Bootstrap
 {
     void Awake()
