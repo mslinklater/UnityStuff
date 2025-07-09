@@ -44,6 +44,18 @@
     <Analyzer Include="/Applications/Unity/Hub/Editor/6000.1.10f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll" />
     <Analyzer Include="/Applications/Unity/Hub/Editor/6000.1.10f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll" />
     <Analyzer Include="/Applications/Unity/Hub/Editor/6000.1.10f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll" />
+    <Analyzer Include="/Users/link/Code/UnityStuff/CitySim/Library/PackageCache/com.unity.entities@e581b903be8e/Unity.Entities/SourceGenerators/AspectGenerator.dll" />
+    <Analyzer Include="/Users/link/Code/UnityStuff/CitySim/Library/PackageCache/com.unity.entities@e581b903be8e/Unity.Entities/SourceGenerators/JobEntityGenerator.dll" />
+    <Analyzer Include="/Users/link/Code/UnityStuff/CitySim/Library/PackageCache/com.unity.entities@e581b903be8e/Unity.Entities/SourceGenerators/SystemGenerator.dll" />
+    <Analyzer Include="/Users/link/Code/UnityStuff/CitySim/Library/PackageCache/com.unity.entities@e581b903be8e/Unity.Entities/SourceGenerators/Unity.Entities.Analyzer.dll" />
+    <Analyzer Include="/Users/link/Code/UnityStuff/CitySim/Library/PackageCache/com.unity.entities@e581b903be8e/Unity.Entities/SourceGenerators/SystemGenerator.LambdaJobs.dll" />
+    <Analyzer Include="/Users/link/Code/UnityStuff/CitySim/Library/PackageCache/com.unity.entities@e581b903be8e/Unity.Entities/SourceGenerators/SystemGenerator.SystemAPI.QueryBuilder.dll" />
+    <Analyzer Include="/Users/link/Code/UnityStuff/CitySim/Library/PackageCache/com.unity.entities@e581b903be8e/Unity.Entities/SourceGenerators/SystemGenerator.SystemAPI.dll" />
+    <Analyzer Include="/Users/link/Code/UnityStuff/CitySim/Library/PackageCache/com.unity.entities@e581b903be8e/Unity.Entities/SourceGenerators/SystemGenerator.SystemAPI.Query.dll" />
+    <Analyzer Include="/Users/link/Code/UnityStuff/CitySim/Library/PackageCache/com.unity.entities@e581b903be8e/Unity.Entities/SourceGenerators/SystemGenerator.Common.dll" />
+    <Analyzer Include="/Users/link/Code/UnityStuff/CitySim/Library/PackageCache/com.unity.entities@e581b903be8e/Unity.Entities/SourceGenerators/Common.dll" />
+    <Analyzer Include="/Users/link/Code/UnityStuff/CitySim/Library/PackageCache/com.unity.entities@e581b903be8e/Unity.Entities/SourceGenerators/SystemGenerator.EntityQueryBulkOperations.dll" />
+    <Analyzer Include="/Users/link/Code/UnityStuff/CitySim/Library/PackageCache/com.unity.entities@e581b903be8e/Unity.Entities/SourceGenerators/Unity.Entities.Analyzer.CodeFixes.dll" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets/TutorialInfo/Scripts/Readme.cs" />
@@ -396,7 +408,7 @@
       <HintPath>/Applications/Unity/Hub/Editor/6000.1.10f1/Unity.app/Contents/Managed/UnityEngine/UnityEditor.XRModule.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Collections.LowLevel.ILSupport">
-      <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/PackageCache/com.unity.collections@56bff8827a7e/Unity.Collections.LowLevel.ILSupport/Unity.Collections.LowLevel.ILSupport.dll</HintPath>
+      <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/PackageCache/com.unity.collections@d49facba0036/Unity.Collections.LowLevel.ILSupport/Unity.Collections.LowLevel.ILSupport.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/PackageCache/com.unity.ext.nunit@031a54704bff/net40/unity-custom/nunit.framework.dll</HintPath>
@@ -405,7 +417,16 @@
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/PackageCache/com.unity.visualscripting@6279e2b7c485/Runtime/VisualScripting.Flow/Dependencies/NCalc/Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil">
-      <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/PackageCache/com.unity.nuget.mono-cecil@d6f9955a5d5f/Mono.Cecil.dll</HintPath>
+      <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/PackageCache/com.unity.nuget.mono-cecil@d78732e851eb/Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Hashing">
+      <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/PackageCache/com.unity.collections@d49facba0036/Unity.Collections.Tests/System.IO.Hashing/System.IO.Hashing.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Cecil.Awesome">
+      <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/PackageCache/com.unity.entities@e581b903be8e/Unity.Entities.CodeGen/Unity.Cecil.Awesome.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe">
+      <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/PackageCache/com.unity.collections@d49facba0036/Unity.Collections.Tests/System.Runtime.CompilerServices.Unsafe/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>/Applications/Unity/Hub/Editor/6000.1.10f1/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
@@ -776,6 +797,9 @@
     <Reference Include="mscorlib">
       <HintPath>/Applications/Unity/Hub/Editor/6000.1.10f1/Unity.app/Contents/NetStandard/compat/2.1.0/shims/netfx/mscorlib.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Entities.Editor">
+      <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.Entities.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.InputSystem.ForUI">
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.InputSystem.ForUI.dll</HintPath>
     </Reference>
@@ -790,6 +814,9 @@
     </Reference>
     <Reference Include="Unity.AI.Navigation">
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.AI.Navigation.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Transforms.Hybrid">
+      <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.Transforms.Hybrid.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
@@ -815,6 +842,9 @@
     <Reference Include="UnityEngine.UI">
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Entities.UI.Editor">
+      <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.Entities.UI.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
     </Reference>
@@ -824,17 +854,26 @@
     <Reference Include="Unity.Multiplayer.Center.Editor">
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.Multiplayer.Center.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.ScriptableBuildPipeline.Editor">
+      <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.ScriptableBuildPipeline.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Mathematics.Editor">
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.Mathematics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.GPUDriven.Runtime">
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.RenderPipelines.GPUDriven.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.ScriptableBuildPipeline">
+      <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.ScriptableBuildPipeline.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Collections">
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.Collections.dll</HintPath>
     </Reference>
     <Reference Include="PPv2URPConverters">
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/PPv2URPConverters.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Serialization">
+      <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rendering.LightTransport.Editor">
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.Rendering.LightTransport.Editor.dll</HintPath>
@@ -848,8 +887,17 @@
     <Reference Include="Unity.RenderPipelines.Universal.Editor">
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Serialization.Editor">
+      <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.Serialization.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Collections.Editor">
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.Collections.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Entities.Hybrid">
+      <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.Entities.Hybrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Profiling.Core">
+      <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.Profiling.Core.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
@@ -866,11 +914,26 @@
     <Reference Include="Unity.AI.Navigation.Updater">
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.AI.Navigation.Updater.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Mathematics.Extensions">
+      <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.Mathematics.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Entities.Graphics.Editor">
+      <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.Entities.Graphics.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Entities.Build">
+      <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.Entities.Build.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VisualScripting.Flow.Editor">
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.VisualScripting.Flow.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Transforms">
+      <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.Transforms.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Scenes">
+      <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.Scenes.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
@@ -887,6 +950,9 @@
     <Reference Include="Unity.RenderPipelines.Core.Editor">
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Deformations">
+      <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.Deformations.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Runtime">
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
     </Reference>
@@ -896,11 +962,20 @@
     <Reference Include="Unity.AI.Navigation.Editor.ConversionSystem">
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.AI.Navigation.Editor.ConversionSystem.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Entities.Graphics">
+      <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.Entities.Graphics.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Burst.Editor">
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.Burst.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Entities.Hybrid.HybridComponents">
+      <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.Entities.Hybrid.HybridComponents.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mathematics.Extensions.Hybrid">
+      <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.Mathematics.Extensions.Hybrid.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Burst">
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.Burst.dll</HintPath>
@@ -908,11 +983,23 @@
     <Reference Include="Unity.VisualStudio.Editor">
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Scenes.Editor">
+      <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.Scenes.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Entities.Editor.Properties">
+      <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.Entities.Editor.Properties.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Runtime">
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Entities.UI">
+      <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.Entities.UI.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VisualScripting.Flow">
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.VisualScripting.Flow.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Entities">
+      <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.Entities.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rendering.LightTransport.Runtime">
       <HintPath>/Users/link/Code/UnityStuff/CitySim/Library/ScriptAssemblies/Unity.Rendering.LightTransport.Runtime.dll</HintPath>
