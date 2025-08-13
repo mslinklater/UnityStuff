@@ -457,8 +457,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SeekerPrefab: {fileID: 3394303803287378879, guid: 9320c0f4ff1074648b295cf45b5dd8f1, type: 3}
   TargetPrefab: {fileID: 9170830512442602957, guid: 809425662a1f341689aa54235bfd9b1f, type: 3}
-  NumSeekers: 1000
-  NumTargets: 1000
+  NumSeekers: 2500
+  NumTargets: 2500
   Bounds: {x: 500, y: 500}
 --- !u!4 &1246955189
 Transform:
@@ -470,6 +470,50 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.03979, y: 0.00664, z: -0.00671}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1624615057
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1624615059}
+  - component: {fileID: 1624615058}
+  m_Layer: 0
+  m_Name: FindNearest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1624615058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624615057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd007d582d21d4438bda0c56fca21a61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1624615059
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624615057}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 38.4744, y: 2.51068, z: 34.09736}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -599,3 +643,4 @@ SceneRoots:
   - {fileID: 2647457909948675841}
   - {fileID: 3467754266748096025}
   - {fileID: 1246955189}
+  - {fileID: 1624615059}
