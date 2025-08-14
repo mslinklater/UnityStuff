@@ -50,6 +50,9 @@
   <ItemGroup>
     <Compile Include="Assets/TutorialInfo/Scripts/Editor/ReadmeEditor.cs" />
     <Compile Include="Assets/Jettelly Visualizing Equations/Editor/DotProductEditor.cs" />
+    <Compile Include="Assets/Jettelly Visualizing Equations/Editor/CrossProductEditor.cs" />
+    <Compile Include="Assets/Jettelly Visualizing Equations/Editor/CommonEditor.cs" />
+    <Compile Include="Assets/Jettelly Visualizing Equations/Editor/IUpdateSceneGUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
