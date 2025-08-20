@@ -3,3 +3,5 @@ Logs/
 Temp/
 **/.DS_Store
 **/*.meta
+
+ShadersAndProceduralShapes/UserSettings/*
